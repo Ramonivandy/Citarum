@@ -45,7 +45,21 @@
 </head>
 
 <body id="page-top" class="index">
-
+    <!-- Firebase Script -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDBo-9JBgW4jLGawyOJqTMaKI1Oohpsbtw",
+        authDomain: "citarum-test.firebaseapp.com",
+        databaseURL: "https://citarum-test.firebaseio.com",
+        projectId: "citarum-test",
+        storageBucket: "citarum-test.appspot.com",
+        messagingSenderId: "135831868710"
+      };
+      firebase.initializeApp(config);
+    </script>
+    
     <!-- Navigation -->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
@@ -103,23 +117,35 @@
         </div>
     </section>
             <script>
-              function initMap() {
-                var myLatLng = {lat: -6.974028, lng: 107.630531};
+        var latFirebase;
+        var lngFirebase;
 
-                var map = new google.maps.Map(document.getElementById('map'), {
-                  zoom: 17,
-                  center: myLatLng
-                });
+        const fbase = firebase.database().ref("Lokasi/Lat");
+          fbase.on("value", snap => {
+            latFirebase = snap.val();
+          })
+        const fbase2 = firebase.database().ref("Lokasi/Lng");
+        fbase2.on("value", snap => {
+          lngFirebase = snap.val();
+        })
+        
+        setTimeout(function initMap() {
+          var myLatLng = {lat: latFirebase, lng: lngFirebase};
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 17,
+            center: myLatLng
+          });
 
-                var marker = new google.maps.Marker({
-                  position: myLatLng,
-                  map: map,
-                });
-              }
-            </script>
-            <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAe0p3eIG1Z_alhid07QQlYxypbagE285A&callback=initMap">
-            </script>
+          var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+          });
+        } ,3000);
+        
+      </script>
+      <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAe0p3eIG1Z_alhid07QQlYxypbagE285A&callback=initMap">
+      </script>
 
     <!-- Footer -->
     <footer class="text-center">
