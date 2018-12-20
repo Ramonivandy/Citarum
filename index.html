@@ -81,7 +81,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#portfolio">Lokasi Tempat Sampah</a>
+                        <a href="#lokasi">Lokasi Tempat Sampah</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#about">About</a>
@@ -110,18 +110,34 @@
     </header>
 
     <!-- Portfolio Grid Section -->
-    <section id="portfolio">
+    <section id="lokasi">
         <div class="container">
           <div class="col-lg-12 text-center">
             <h2>LOKASI TEMPAT SAMPAH</h2>
             <hr class="star-primary">
           </div>
           <div id="map"></div>
+          <hr class="star-primary">
+          <div class="col-sm-4">
+          <img src="https://png2.kisspng.com/sh/0f4206b342b75fedc9e10f73684bac6c/L0KzQYm3U8IxN5NpiZH0aYP2gLBuTgdie6VqReV4coTsfri0gB9ueKZ5feQ2aXPyfsS0kvVkgZRxgdDwLYL4crPwkBguappzReZ7YX72gLL5hf51NZNme91wcnB4frW0hBFzapJsfZ9raX6wRbLpUPI5OmQ6SaRtNUGxRoK7UMQ0OmI2TaQ6NUOzSYK8U8MzPV91htk=/kisspng-waste-sorting-computer-icons-recycling-rubbish-bin-transparent-background-garbage-bin-5ab0b823512d51.6140432115215309153325.png" height="360px" width="360px" padding="25%">
         </div>
+        <div class="col-sm-8">
+        <h2>Tingkat Kepenuhan tempat sampah</h2>
+        <h4> Sampah didalam sudah setinggi :</h4>
+        <h2><div id="ketinggianSampah"> </div> </h2>
+        
+        </div>
+    
     </section>
             <script>
         var latFirebase;
         var lngFirebase;
+        
+
+        const fbase3 = firebase.database().ref("Lokasi/KetinggianSampah");
+          fbase3.on("value", snap => {
+            document.getElementById("ketinggianSampah").innerHTML = snap.val()+' Cm';
+          })
 
         const fbase = firebase.database().ref("Lokasi/Lat");
           fbase.on("value", snap => {
@@ -149,6 +165,8 @@
       <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAe0p3eIG1Z_alhid07QQlYxypbagE285A&callback=initMap">
       </script>
+      
+
 
     <!-- Footer -->
     <footer class="text-center">
